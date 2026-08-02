@@ -6,7 +6,7 @@ Welcome to my PySpark portfolio repository! This space showcases end-to-end data
 
 ### 🔹 1. Mini Customer Data Pipeline (1,000 Records)
 An end-to-end PySpark mini-project implemented on GCP to read, process, multi-join, and analyze a dataset of 1,000 customers.
-*   👉 **[Click Here to View Project & Outputs](https://github.com)**
+*   👉 **[Click Here to View Project & Outputs](https://github.com/nihalgupta933-sys/pyspark-projects/tree/main/Mini%20Project%20-%20%20(%20Data%20Read%20%26%20Process))**
 
 ---
 
