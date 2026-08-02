@@ -47,6 +47,3 @@ Below is the sequential pipeline execution captured directly from the GCP cluste
     ![High Freq Low Spend Segment](ss/Screenshot%202026-07-25%20155148.png)
 
 ---
-
-## 📁 Project 2: Kaggle Olist Brazilian E-Commerce Analytics
-*(⏳ Setting up soon — This project will involve advanced analytics on the large scale Olist e-commerce dataset using PySpark)*
