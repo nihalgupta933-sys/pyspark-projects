@@ -1,64 +1,54 @@
-# 🔍 Module 1: Data Ingestion & Exploratory Data Analysis
+# 🔍 Module 1: Data Exploration
 
-This module covers the cluster-level data ingestion process via SSH into the Hadoop Distributed File System (HDFS) and the initial Exploratory Data Analysis (EDA) using PySpark to profile schemas, columns, and data types.
+This module shows how to get the Olist data, move it into the cloud cluster system, and explore it using PySpark.
 
----
-
-## 🏗️ Data Ingestion & Cluster Setup
-
-In a production environment, data processing is offloaded to multi-node clusters rather than local machines. For this project, the dataset was ingested and staged onto a cloud infrastructure environment using the following steps:
-
-1. **Secure Shell (SSH) Access:** Connected directly to the cloud master node instance using terminal credentials.
-2. **Directory Initialization:** Created a dedicated workspace environment on the cluster file system:
-   ```bash
-   mkdir -p olist/data && cd olist/data
-   ```
-3. **Data Acquisition:** Downloaded the zipped source files directly using curl commands via the official API endpoint, or manually staged via secure copy protocol (SCP).
-   * **Dataset Source:** You can find and download the source dataset directly from the official link here: [Kaggle Olist Brazilian E-Commerce Public Dataset](https://kaggle.com).
-4. **Decompression:** Extracted the flat `.csv` target files into the staging folder:
-   ```bash
-   unzip brazilian-ecommerce.zip -d ~/olist/data/
-   ```
-5. **HDFS Migrations:** Transferred the unzipped flat files from local cluster block storage straight into the distributed HDFS layer using standard Hadoop system commands:
-   ```bash
-   hadoop fs -put ~/olist/data/*.csv /user/hadoop/olist/
-   ```
-
-With the files successfully loaded into the distributed cluster file system, a PySpark `SparkSession` was initialized inside a Jupyter Notebook to begin distributed analysis.
-
-![Spark Session Initialization](./ss/Screenshot%202026-08-03%20132512.png)
+👉 [Click Here to View the Module 1 Code Notebook](./Module%201%20-%20Data%20Exploration.ipynb)
 
 ---
 
-## 📊 Distributed Exploratory Data Analysis (EDA)
+## 🏗️ Step 1: Getting the Data and Setting up HDFS
 
-Once the raw data files were available in HDFS, the PySpark DataFrame API was used to profile structural integrity, shapes, and distributions without execution outputs saved inline.
+In real projects, we use a cloud cluster system (like GCP Dataproc) instead of our own laptops. Here is how the data was uploaded in the background using terminal commands (SSH):
 
-### 📁 1. Initial Ingestion Verification
-The flat relational tables were parsed from CSV lines directly out of HDFS. Initial data frames were verified using the `.show()` action to inspect text alignment and columns.
-![Data Frame Loading View](./ss/Screenshot%202026-08-03%20132626.png)
+1. **Created Folders:** Opened the cluster terminal and used `mkdir olist` to create a project directory.
+2. **Downloaded Data:** Downloaded the Brazilian e-commerce files directly onto the cluster. You can find the raw files here: [Kaggle Olist Brazilian E-Commerce Public Dataset](https://kaggle.com).
+3. **Unzipped Files:** Extracted the flat files into a subfolder named `data`.
+4. **Moved to HDFS:** Used `hadoop fs -put` commands to transfer all the unzipped CSV files from the local cluster storage directly into the distributed HDFS file system.
 
-### 📋 2. Relational Schema & Type Profiling
-Structural structural formats were verified for core entities like `orders` and `customers`. Printouts confirm explicit field data types (Strings, Timestamps, Integers) and structural nullability constraints.
-![Orders and Customers Schema Printouts](./ss/Screenshot%202026-08-03%20132658.png)
+Once the data was safely in HDFS, a PySpark session was started inside a Jupyter Notebook to begin looking at the data:
 
-### 🆔 3. Primary Key & Integrity Checks
-Primary identifiers and critical fields were profiled across frames using distinct-count metrics. This phase evaluated data integrity, uncovered natural primary keys, and flagged duplicate entry metrics.
-![Data Deduplication & Key Profiling](./ss/Screenshot%202026-08-03%20132744.png)
+![Spark Session Setup](./ss/Screenshot%202026-08-03%20132512.png)
 
-### 🗺️ 4. Geographic Demographics & Status Distributions
-Data rows were aggregated to isolate geographic volume variations. Order records were segmented by customer state location alongside a clean distribution table showing absolute statuses (`delivered`, `shipped`, `canceled`).
-![State-wise Demographics & Order Status Distributions](./ss/Screenshot%202026-08-03%20132828.png)
+---
 
-### 💳 5. Financial Transaction Profiling
-Aggregations run on the payment datasets map consumer transaction profiles. The analysis highlights common transaction formats (Credit Cards, Vouchers, *Boleto*) along with financial value metrics.
-![Payment Methods & Transaction Metrics Analysis](./ss/Screenshot%202026-08-03%20132915.png)
+## 📊 Step 2: Looking at the Data
 
-### 📦 6. Product Category Volume Analysis
-Order lines were matched to isolate product categorization rankings. Top-selling product segments were generated to pinpoint product types that drive the highest retail order quantities.
-![Top Selling Retail Items Optimization](./ss/Screenshot%202026-08-03%20132942.png)
+Here are the step-by-step screenshots showing exactly what was analyzed in the notebook:
 
-### 🚚 7. Logistics Turnaround & Delivery Latencies
-Calculations were run on shipment timestamps to compute physical fulfillment turnaround rates. This analysis profiles the historical average delivery durations across the regional logistics footprint.
-![Average Delivery Duration Latency Performance](./ss/Screenshot%202026-08-03%20133023.png)
+### 📁 Reading the CSV Files
+This step reads the raw data from the CSV files stored in HDFS and displays the rows on the screen.
+![Read CSV data](./ss/Screenshot%202026-08-03%20132626.png)
 
+### 📋 Checking Table Schemas
+This step prints out the column structures and data types for the orders and customers tables.
+![Print table schemas](./ss/Screenshot%202026-08-03%20132658.png)
+
+### 🆔 Checking Duplicate Values
+This step explores the dataset to find duplicate records and check critical data fields.
+![Explore duplicates and fields](./ss/Screenshot%202026-08-03%20132744.png)
+
+### 🗺️ Customers and Orders Distribution
+This step checks how many customers belong to each Brazilian state, along with the distribution of different order statuses.
+![Customer state and order status distributions](./ss/Screenshot%202026-08-03%20132828.png)
+
+### 💳 Payment Analysis
+This step explores the payments dataset to see how customers chose to pay for their orders.
+![Explore payments](./ss/Screenshot%202026-08-03%20132915.png)
+
+### 📦 Top Selling Items
+This step filters and counts the dataset rows to find out which items are the top sellers.
+![Explore top selling items](./ss/Screenshot%202026-08-03%20132942.png)
+
+### 🚚 Delivery Time Analysis
+This step calculates dates and numbers to analyze the average time it takes for orders to be delivered.
+![Average delivery time analysis](./ss/Screenshot%202026-08-03%20133023.png)
