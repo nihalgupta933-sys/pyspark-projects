@@ -22,9 +22,9 @@ This step processes the missing values found in the datasets and fills them usin
 This step uses imputation techniques to replace empty cells with appropriate default values or metrics.
 ![Impute missing values](./ss/Screenshot%202026-08-03%20133520.png)
 
-### 📅 Standardizing Formats
-This step fixes text patterns and changes date columns into a standardized format so they are easy to read.
-![Standardize data formats](./ss/Screenshot%202026-08-03%20133556.png)
+### 📋 Custom Function for Schema Printing
+This step defines a custom helper function to automatically print and verify the data types and column structures across the notebooks.
+![Custom function for schema printing](./ss/Screenshot%202026-08-03%20133556.png)
 
 ### 💳 Cleaning Payment Types
 This step cleans up the payment method column to make sure all payment types are uniform and spelled correctly.
@@ -53,4 +53,3 @@ This step aggregates order costs and values together to calculate exactly how mu
 ### 💾 Saving Clean Data as Parquet in HDFS
 This final step exports the clean datasets out of memory and saves them into the distributed HDFS file system as optimized Parquet files.
 ![Store clean data as Parquet in HDFS](./ss/Screenshot%202026-08-03%20134103.png)
-
