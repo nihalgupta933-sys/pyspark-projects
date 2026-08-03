@@ -12,4 +12,4 @@ An end-to-end PySpark mini-project implemented on GCP to read, process, multi-jo
 
 ### 🔹 2. Kaggle Olist Brazilian E-Commerce Analytics
 Advanced big data analytics and optimization metrics processing on the large-scale Olist e-commerce dataset using PySpark.
-*   👉 *(Folder coming soon!)*
+* 👉 [Click Here to View Project & Outputs](./Kaggle%20Olist%20Brazilian%20E-Commerce%20Analytics)
