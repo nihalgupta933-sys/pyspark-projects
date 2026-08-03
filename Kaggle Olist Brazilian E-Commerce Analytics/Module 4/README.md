@@ -10,8 +10,14 @@ This module covers tuning configurations for a Google Cloud Platform (GCP) Datap
 
 Here are the screenshots showing exactly what optimization steps were done in the notebook:
 
-### ⚙️ 1. Cluster Setup & Memory Configurations
-This step outlines the GCP Dataproc cluster specs (8 worker vCPUs and 32 GB RAM total) and configures memory settings like `spark.executor.memory` (6G) and `spark.driver.memory` (4G) inside the SparkSession initialization block.
+### ⚙️ 1. Cluster Setup & Deep Memory Tuning
+This step outlines the GCP Dataproc cluster specs (8 worker vCPUs and 32 GB RAM total) and tunes custom Spark configurations to maximize performance:
+* `spark.executor.memory` (6g) & `spark.driver.memory` (4g): Allocates explicit memory sizing for executors and drivers.
+* `spark.shuffle.partitions` (64) & `spark.default.parallelism` (64): Limits partition counts based on our 2 workers × 4 cores layout to prevent slow data shuffles.
+* `spark.sql.adaptive.enabled` (true): Turns on Adaptive Query Execution (AQE) to optimize query plans at runtime.
+* `autoBroadcastJoinThreshold` (20MB): Increases the file size limit to automatically trigger fast Broadcast Joins for mid-sized lookup tables.
+* `spark.memory.fraction` (0.8): Increases execution memory space to give complex operations room to run.
+
 ![Cluster resource planning and memory tuning](./ss/Screenshot%202026-08-01%20192410.png)
 
 ### 📥 2. HDFS Ingestion & Stage Execution Tracking
@@ -24,4 +30,3 @@ This step tests advanced Spark execution patterns to handle skewed data structur
 * **Sort-Merge Join:** Presorting table rows locally inside partition ranges (`sortWithinPartitions`).
 * **Bucket Join:** Repartitioning parallel streams (`repartition(10, 'customer_id')`) to prevent uneven cluster workloads.
 ![Optimized table join strategies](./ss/Screenshot%202026-08-01%20192447.png)
-
